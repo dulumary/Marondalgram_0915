@@ -62,6 +62,15 @@
 			var isCheckDuplicate = false;
 			var isDuplicate = true;
 			
+			$("#loginIdInput").on("input", function() {
+				isCheckDuplicate = false;
+				isDuplicate = true;
+				
+				$("#avaliableText").addClass("d-none");
+				$("#duplicateText").addClass("d-none");
+				
+			});
+			
 			$("#isDuplicateBtn").on("click", function() {
 				
 				let id = $("#loginIdInput").val();

@@ -13,6 +13,15 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	public User getUser(String loginId, String password) {
+		
+		String encryptString = EncryptUtils.md5(password);
+		
+		User user = userRepository.findByLoginIdAndPassword(loginId, encryptString).orElse(null);
+		 
+		return user;
+	}
+	
 	public boolean isDuplicateId(String loginId) {
 		
 		int count = userRepository.countByLoginId(loginId);

@@ -22,12 +22,14 @@
 					<div class="w-100 p-5">			
 						<h2 class="text-center">Marondalgram</h2>
 						<br>
+						
 						<form id="loginForm">
 							<input type="text" id="loginIdInput" class="form-control mt-3" placeholder="아이디">
 							<input type="password" id="passwordInput" class="form-control mt-3" placeholder="패스워드">
 							<button id="loginBtn" type="submit" class="btn btn-primary btn-block mt-3">로그인</button>
 							<hr/>
 						</form>
+						
 						
 						<div class="text-center text-secondary">비밀번호를 잊으셨나요?</div>
 					</div>
@@ -45,7 +47,49 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	
+	<script>
+		$(document).ready(function() {
+			
+			// $("#loginBtn").on("click", function() {
+			$("#loginForm").on("submit", function(e) {
+				
+				// form 태그가 가진 페이지 이동 기능을 막자 
+				e.preventDefault();
+				
+				let loginId = $("#loginIdInput").val();
+				let password = $("#passwordInput").val();
+				
+				if(loginId == "") {
+					alert("아이디를 입력하세요");
+					return ;
+				}
+				
+				if(password == "") {
+					alert("비밀번호를 입력하세요");
+					return ;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/login"
+					, data:{"loginId":loginId, "password":password}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.href = "/post/timeline-view"
+						} else {
+							alert("아이디, 비밀번호를 확인하세요");
+						}
+					}
+					, error:function() {
+						alert("로그인 에러");
+					}
+				});
+			});
+			
+			
+		});
 	
+	</script>
 	
 </body>
 </html>

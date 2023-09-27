@@ -13,6 +13,11 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	public User getUserById(int id) {
+		 User user = userRepository.findById(id).orElse(null);
+		 return user;
+	}
+	
 	public User getUser(String loginId, String password) {
 		
 		String encryptString = EncryptUtils.md5(password);

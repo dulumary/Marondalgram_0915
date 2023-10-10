@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.marondal.marondalgram.common.FileManager;
+import com.marondal.marondalgram.like.service.LikeService;
 import com.marondal.marondalgram.post.domain.Post;
 import com.marondal.marondalgram.post.dto.PostDetail;
 import com.marondal.marondalgram.post.repository.PostRepository;
@@ -22,6 +23,9 @@ public class PostService {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private LikeService likeService;
 	
 	public int addPost(int userId, String content, MultipartFile file) {
 		
@@ -39,6 +43,8 @@ public class PostService {
 			
 			int userId = post.getUserId();
 			User user = userService.getUserById(userId);
+			// 좋아요 개수 조회 
+			int likeCount = likeService.countLike(post.getId());
 			
 			PostDetail postDetail = PostDetail.builder()
 									.id(post.getId())
@@ -46,6 +52,8 @@ public class PostService {
 									.content(post.getContent())
 									.imagePath(post.getImagePath())
 									.loginId(user.getLoginId())
+									.likeCount(likeCount)
+									.isLike(false)
 									.build();
 			
 			postDetailList.add(postDetail);

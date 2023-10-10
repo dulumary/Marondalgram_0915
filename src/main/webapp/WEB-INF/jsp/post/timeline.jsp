@@ -41,13 +41,13 @@
 							<img width="100%" src="${post.imagePath }">
 						</div>
 						<div class="p-2">
-							<i class="bi bi-heart"></i>
-							좋아요 11개
+							<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>
+							좋아요 ${post.likeCount }개
 						</div>
 						<div class="p-2">
 							<b>${post.loginId }</b> ${post.content }
 						</div>
-						
+						${post.like }
 						<!-- 댓글 목록 -->
 						<div class="comment-box">
 							<div class="px-2">댓글</div>
@@ -57,8 +57,8 @@
 							</div>
 							
 							<div class="d-flex mt-3">
-								<input type="text" class="form-control">
-								<button type="button" class="btn btn-info">게시</button>
+								<input type="text" class="form-control" id="commentInput${post.id }">
+								<button type="button" class="btn btn-info comment-btn" data-post-id="${post.id }">게시</button>
 							</div>
 						
 						</div>
@@ -88,6 +88,60 @@
 	
 	<script>
 		$(document).ready(function() {
+			
+			$(".comment-btn").on("click", function() {
+				
+				let postId = $(this).data("post-id");
+			
+				let comment = $("#commentInput" + postId).val();
+			
+				$.ajax({
+					type:"post"
+					, url:"/post/comment/create"
+					, data:{"postId":postId, "content":comment}
+					, success:function(data) {
+						
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("댓글 작성 실패");
+						}
+						
+					}
+					, error:function() {
+						alert("댓글 작성 에러");
+					}
+				});
+				
+				
+			});
+			
+			$(".like-icon").on("click", function() {
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/like"
+					, data:{"postId":postId}
+					, success:function(data) {
+						
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 실패");
+						}
+						
+					}
+					, error:function() {
+						alert("좋아요 에러");
+					}
+				});
+				
+				
+			});
+			
+			
 			$("#addBtn").on("click", function() {
 				
 				let content = $("#contentInput").val();

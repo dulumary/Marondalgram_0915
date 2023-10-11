@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.marondal.marondalgram.comment.domain.Comment;
+import com.marondal.marondalgram.comment.dto.CommentDetail;
 import com.marondal.marondalgram.comment.service.CommentService;
 import com.marondal.marondalgram.common.FileManager;
 import com.marondal.marondalgram.like.service.LikeService;
@@ -52,7 +52,7 @@ public class PostService {
 			int likeCount = likeService.countLike(post.getId());
 			boolean isLike = likeService.isLike(post.getId(), loginUserId);
 			
-			List<Comment> commentList = commentService.getCommentList(post.getId());
+			List<CommentDetail> commentList = commentService.getCommentList(post.getId());
 			
 			PostDetail postDetail = PostDetail.builder()
 									.id(post.getId())

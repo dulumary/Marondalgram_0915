@@ -60,7 +60,7 @@
 							<div class="px-2">댓글</div>
 							<div class="px-2">
 								<c:forEach var="comment" items="${post.commentList }">
-								<div><b>${comment.userId }</b> ${comment.content }</div>
+								<div><b>${comment.loginId }</b> ${comment.content }</div>
 								</c:forEach>
 							</div>
 							

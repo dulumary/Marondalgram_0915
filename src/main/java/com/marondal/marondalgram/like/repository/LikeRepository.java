@@ -12,5 +12,9 @@ public interface LikeRepository {
 	
 	public int selectCountLike(
 			@Param("postId") int postId);
+	
+	public int selectCountLikeByUserId(
+			@Param("postId") int postId
+			, @Param("userId") int userId);
 
 }

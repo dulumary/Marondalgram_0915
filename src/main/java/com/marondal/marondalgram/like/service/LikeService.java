@@ -18,5 +18,17 @@ public class LikeService {
 	public int countLike(int postId) {
 		return likeRepository.selectCountLike(postId);
 	}
+	
+	public boolean isLike(int postId, int userId) {
+		int count = likeRepository.selectCountLikeByUserId(postId, userId);
+		
+//		if(count == 0) {
+//			return false;
+//		} else {
+//			return true;
+//		}
+		
+		return count != 0;
+	}
 
 }

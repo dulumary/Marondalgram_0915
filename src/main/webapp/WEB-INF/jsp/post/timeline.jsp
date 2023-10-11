@@ -41,19 +41,27 @@
 							<img width="100%" src="${post.imagePath }">
 						</div>
 						<div class="p-2">
-							<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>
+							<c:choose>
+								<c:when test="${post.like }">
+									<i class="bi bi-heart-fill text-danger"></i>
+								</c:when>
+								<c:otherwise>
+									<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>		
+								</c:otherwise>
+							</c:choose> 
+							
 							좋아요 ${post.likeCount }개
 						</div>
 						<div class="p-2">
 							<b>${post.loginId }</b> ${post.content }
 						</div>
-						${post.like }
 						<!-- 댓글 목록 -->
 						<div class="comment-box">
 							<div class="px-2">댓글</div>
 							<div class="px-2">
-								<div><b>marondal</b> 진짜 귀엽네요</div>
-								<div><b>asdf</b> 우와 잘 찍었네요</div>
+								<c:forEach var="comment" items="${post.commentList }">
+								<div><b>${comment.userId }</b> ${comment.content }</div>
+								</c:forEach>
 							</div>
 							
 							<div class="d-flex mt-3">

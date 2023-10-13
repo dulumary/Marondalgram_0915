@@ -32,6 +32,28 @@ public class PostService {
 	@Autowired
 	private CommentService commentService;
 	
+	public int deletePost(int postId, int userId) {
+		
+		// 첨부된 파일 삭제 
+		Post post = postRepository.selectPost(postId);
+		
+		if(post.getUserId() != userId) {
+			return 0;
+		}
+		
+		FileManager.removeFile(post.getImagePath());
+		
+		// 댓글 삭제
+		commentService.deleteCommentByPostId(postId);
+		
+		// 좋아요 삭제
+		likeService.deleteLikeByPostId(postId);
+		
+		return postRepository.deletePost(postId);
+		
+	}
+	
+	
 	public int addPost(int userId, String content, MultipartFile file) {
 		
 		String imagePath = FileManager.saveFile(userId, file);

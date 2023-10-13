@@ -16,5 +16,7 @@ public interface CommentRepository {
 			, @Param("content") String content);
 	
 	public List<Comment> selectCommentList(@Param("postId") int postId);
+	
+	public int deleteCommentByPost(@Param("postId") int postId);
 
 }

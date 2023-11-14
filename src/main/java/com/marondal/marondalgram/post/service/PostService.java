@@ -62,9 +62,9 @@ public class PostService {
 		
 	}
 	
-	public List<PostDetail> getPostList(int loginUserId) {
+	public List<PostDetail> getPostList(int loginUserId, Integer targetUserId) {
 	
-		List<Post> postList = postRepository.selectPostList();
+		List<Post> postList = postRepository.selectPostList(targetUserId);
 		List<PostDetail> postDetailList = new ArrayList<>();
 		for(Post post:postList) {
 			

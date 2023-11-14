@@ -168,8 +168,12 @@
 							alert("회원가입 실패");
 						}
 					}
-					, error:function() {
-						alert("회원가입 에러");
+					, error:function(jqXHR) {
+						
+						if(jqXHR.status == 500) {
+							alert(jqXHR.responseJSON.message);
+						}
+						
 					}
 				});
 				

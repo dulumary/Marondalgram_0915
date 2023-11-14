@@ -12,6 +12,7 @@ public class FileManager {
 	
 	public static final String FILE_UPLOAD_PATH = "/home/ec2-user/web/marondalgram/upload";
 	
+
 	public static String saveFile(int userId, MultipartFile file) {
 		
 		if(file == null) {

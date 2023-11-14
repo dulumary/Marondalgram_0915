@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+
+
 @Configuration
 @MapperScan(basePackages="com.marondal.marondalgram.*")
 public class DatabaseConfig {
